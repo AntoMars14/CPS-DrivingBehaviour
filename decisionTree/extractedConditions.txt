@@ -1,0 +1,37 @@
+==================================================
+ CODICE DA COPIARE IN PTOLEMY (PythonScript Actor) oppure usare le condizioni direttamente.
+==================================================
+def classify_window(input_features):
+    # Input atteso: array con 12 valori nell'ordine seguente:
+    # AccX_std, AccY_std, AccZ_std, GyroX_std, GyroY_std, GyroZ_std, AccX_mean, AccY_mean, AccZ_mean, GyroX_mean, GyroY_mean, GyroZ_mean
+    # (Calcolare std e mean sugli ultimi 60 campioni prima di chiamare questa funzione)
+
+    AccX_std = input_features[0]
+    AccY_std = input_features[1]
+    AccZ_std = input_features[2]
+    GyroX_std = input_features[3]
+    GyroY_std = input_features[4]
+    GyroZ_std = input_features[5]
+    AccX_mean = input_features[6]
+    AccY_mean = input_features[7]
+    AccZ_mean = input_features[8]
+    GyroX_mean = input_features[9]
+    GyroY_mean = input_features[10]
+    GyroZ_mean = input_features[11]
+
+    if AccY_std <= 0.9961:
+        if AccX_std <= 1.2629:
+            if AccX_mean <= -0.1562:
+                return "NORMAL"
+            else:  # AccX_mean > -0.1562
+                return "SLOW"
+        else:  # AccX_std > 1.2629
+            return "AGGRESSIVE"
+    else:  # AccY_std > 0.9961
+        if AccX_std <= 1.0412:
+                return "AGGRESSIVE"
+        else:  # AccX_std > 1.0412
+            if AccZ_mean <= 0.2407:
+                return "AGGRESSIVE"
+            else:  # AccZ_mean > 0.2407
+                return "NORMAL"
