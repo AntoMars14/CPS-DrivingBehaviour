@@ -1,10 +1,10 @@
-==================================================
- CODICE DA COPIARE IN PTOLEMY (PythonScript Actor) oppure usare le condizioni direttamente.
-==================================================
+######################################################################
+ CODICE PTOLEMY OTTIMIZZATO (Window Size: 50, Depth: 3)
+######################################################################
 def classify_window(input_features):
-    # Input atteso: array con 12 valori nell'ordine seguente:
+    # IMPORTANTE: Calcolare STD e MEAN su finestra di 50 campioni.
+    # Input atteso (12 valori):
     # AccX_std, AccY_std, AccZ_std, GyroX_std, GyroY_std, GyroZ_std, AccX_mean, AccY_mean, AccZ_mean, GyroX_mean, GyroY_mean, GyroZ_mean
-    # (Calcolare std e mean sugli ultimi 60 campioni prima di chiamare questa funzione)
 
     AccX_std = input_features[0]
     AccY_std = input_features[1]
@@ -19,19 +19,19 @@ def classify_window(input_features):
     GyroY_mean = input_features[10]
     GyroZ_mean = input_features[11]
 
-    if AccY_std <= 0.9961:
-        if AccX_std <= 1.2629:
-            if AccX_mean <= -0.1562:
-                return "NORMAL"
-            else:  # AccX_mean > -0.1562
+    if AccY_std <= 0.86272:
+        if AccX_mean <= -0.17568:
+            if GyroX_mean <= -0.00888:
                 return "SLOW"
-        else:  # AccX_std > 1.2629
-            return "AGGRESSIVE"
-    else:  # AccY_std > 0.9961
-        if AccX_std <= 1.0412:
-                return "AGGRESSIVE"
-        else:  # AccX_std > 1.0412
-            if AccZ_mean <= 0.2407:
-                return "AGGRESSIVE"
-            else:  # AccZ_mean > 0.2407
+            else:  # GyroX_mean > -0.00888
                 return "NORMAL"
+        else:  # AccX_mean > -0.17568
+                return "SLOW"
+    else:  # AccY_std > 0.86272
+        if AccX_std <= 1.12776:
+            if AccY_std <= 1.03841:
+                return "NORMAL"
+            else:  # AccY_std > 1.03841
+                return "AGGRESSIVE"
+        else:  # AccX_std > 1.12776
+                return "AGGRESSIVE"
