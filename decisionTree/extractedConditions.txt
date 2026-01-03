@@ -19,7 +19,7 @@ def classify_window(input_features):
     GyroY_mean = input_features[10]
     GyroZ_mean = input_features[11]
 
-    if AccY_std <= 0.86272:
+    if AccY_std <= 0.85405:
         if AccX_mean <= -0.17568:
             if GyroX_mean <= -0.00888:
                 return "SLOW"
@@ -27,11 +27,11 @@ def classify_window(input_features):
                 return "NORMAL"
         else:  # AccX_mean > -0.17568
                 return "SLOW"
-    else:  # AccY_std > 0.86272
-        if AccX_std <= 1.12776:
-            if AccY_std <= 1.03841:
+    else:  # AccY_std > 0.85405
+        if AccX_std <= 1.11643:
+            if AccY_std <= 1.02797:
                 return "NORMAL"
-            else:  # AccY_std > 1.03841
+            else:  # AccY_std > 1.02797
                 return "AGGRESSIVE"
-        else:  # AccX_std > 1.12776
+        else:  # AccX_std > 1.11643
                 return "AGGRESSIVE"

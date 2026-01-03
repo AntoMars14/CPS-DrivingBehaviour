@@ -21,7 +21,7 @@ def create_features(df_raw, window_size):
     sensor_cols = ['AccX', 'AccY', 'AccZ', 'GyroX', 'GyroY', 'GyroZ']
 
     # Feature Engineering
-    rolling_std = df_raw[sensor_cols].rolling(window=window_size).std().add_suffix('_std')
+    rolling_std = df_raw[sensor_cols].rolling(window=window_size).std(ddof=0).add_suffix('_std')
     rolling_mean = df_raw[sensor_cols].rolling(window=window_size).mean().add_suffix('_mean')
 
     df_windowed = pd.concat([df_raw['Class'], rolling_std, rolling_mean], axis=1).dropna()
